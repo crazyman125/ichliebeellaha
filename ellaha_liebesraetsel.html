@@ -1,0 +1,125 @@
+
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Für Ellaha — Ein Liebesrätsel</title>
+<style>
+  :root{
+    --bg:#fff6f7;
+    --card:#fff;
+    --accent:#c94f6d;
+    --muted:#7a6b6f;
+    --glass: rgba(255,255,255,0.6);
+    --shadow: 0 6px 18px rgba(0,0,0,0.12);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  }
+  html,body{height:100%;margin:0;background:
+    linear-gradient(180deg,#fff6f7 0%, #fff0f3 40%, #fdeef2 100%);}
+  .wrap{max-width:900px;margin:32px auto;padding:24px;}
+  header{display:flex;gap:20px;align-items:center}
+  .avatar{
+    width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#ff9ab0);
+    box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:28px;
+  }
+  h1{margin:0;font-size:28px;color:#5a3b45}
+  p.lead{margin:6px 0 0;color:var(--muted)}
+  .card{background:var(--card);border-radius:14px;padding:18px;margin-top:18px;box-shadow:var(--shadow)}
+  .puzzles{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
+  .puzzle{border-radius:12px;padding:14px;background:#ffffff}
+  input{padding:10px;border-radius:8px;border:1px solid #e8d6d9;flex:1;font-size:14px;}
+  button{padding:10px 14px;border-radius:8px;border:0;background:var(--accent);color:white;font-weight:600;cursor:pointer;}
+  .success{margin-top:10px;color:green;font-weight:700}
+  .locked{opacity:0.4}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="avatar">E</div>
+<div>
+<h1>Für Ellaha ❤️</h1>
+<p class="lead">Ein kleines Liebes‑Rätsel nur für dich.</p>
+</div>
+</header>
+
+<section class="card">
+<h2>Romantische Rätsel</h2>
+
+<div class="puzzles">
+
+<div class="puzzle" id="p1">
+<h3>Rätsel 1</h3>
+<p>Der Tag an dem du geboren wurdest und die Welt schöner wurde.</p>
+<input id="a1" placeholder="TT.MM.JJJJ">
+<button onclick="check(1)">Prüfen</button>
+<div id="s1" class="success" hidden>Richtig ❤️</div>
+</div>
+
+<div class="puzzle locked" id="p2">
+<h3>Rätsel 2</h3>
+<p>Der Tag unseres ersten Dates.</p>
+<input id="a2" placeholder="TT.MM.JJJJ" disabled>
+<button onclick="check(2)" disabled>Prüfen</button>
+<div id="s2" class="success" hidden>Richtig ❤️</div>
+</div>
+
+<div class="puzzle locked" id="p3">
+<h3>Rätsel 3</h3>
+<p>Der Tag an dem wir offiziell zusammen waren.</p>
+<input id="a3" placeholder="TT.MM.JJJJ" disabled>
+<button onclick="check(3)" disabled>Prüfen</button>
+<div id="s3" class="success" hidden>Richtig ❤️</div>
+</div>
+
+<div class="puzzle locked" id="p4">
+<h3>Rätsel 4</h3>
+<p>Der Tag unserer Verlobung.</p>
+<input id="a4" placeholder="TT.MM.JJJJ" disabled>
+<button onclick="check(4)" disabled>Prüfen</button>
+<div id="s4" class="success" hidden>Richtig ❤️</div>
+</div>
+
+<div class="puzzle locked" id="p5">
+<h3>Rätsel 5</h3>
+<p>Der schönste Tag – unsere Hochzeit.</p>
+<input id="a5" placeholder="TT.MM.JJJJ" disabled>
+<button onclick="check(5)" disabled>Prüfen</button>
+<div id="s5" class="success" hidden>Für immer wir ❤️</div>
+</div>
+
+</div>
+</section>
+</div>
+
+<script>
+const answers = {
+1:"10.03.1993",
+2:"14.06.2025",
+3:"27.06.2025",
+4:"23.08.2025",
+5:"24.08.2025"
+}
+
+function check(n){
+let input=document.getElementById("a"+n)
+if(input.value===answers[n]){
+document.getElementById("s"+n).hidden=false
+input.disabled=true
+let btn=input.nextElementSibling
+btn.disabled=true
+if(n<5){
+let next=document.getElementById("p"+(n+1))
+next.classList.remove("locked")
+document.getElementById("a"+(n+1)).disabled=false
+next.querySelector("button").disabled=false
+}
+}else{
+alert("Fast! Versuch es nochmal ❤️")
+}
+}
+</script>
+
+</body>
+</html>
