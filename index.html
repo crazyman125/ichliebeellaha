@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unsere Liebesreise ❤️</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:linear-gradient(to bottom,#ffdde1,#ee9ca7);
+color:white;
+text-align:center;
+overflow:hidden;
+}
+
+#game{
+padding:20px;
+}
+
+.character{
+font-size:60px;
+margin-top:20px;
+}
+
+.dialog{
+background:rgba(0,0,0,0.4);
+padding:20px;
+border-radius:15px;
+margin-top:20px;
+}
+
+input{
+padding:12px;
+font-size:18px;
+border-radius:8px;
+border:none;
+width:80%;
+max-width:300px;
+margin-top:10px;
+}
+
+button{
+padding:12px 25px;
+border:none;
+border-radius:8px;
+background:#ff4d6d;
+color:white;
+font-size:18px;
+margin-top:10px;
+}
+
+.heart{
+position:fixed;
+font-size:30px;
+animation:fall 4s linear forwards;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px);opacity:1;}
+100%{transform:translateY(100vh);opacity:0;}
+}
+
+#final{
+display:none;
+font-size:28px;
+margin-top:40px;
+animation:fade 2s;
+}
+
+@keyframes fade{
+from{opacity:0;transform:scale(0.7);}
+to{opacity:1;transform:scale(1);}
+}
+</style>
+</head>
+
+<body>
+
+<div id="game">
+
+<h1>Ellahas Liebesreise ❤️</h1>
+
+<div class="character" id="npc">👨</div>
+
+<div class="dialog" id="dialog">
+<p id="text">Hallo meine Liebe… Weißt du noch, wann du geboren wurdest?</p>
+<input id="answer" placeholder="TT.MM.JJJJ">
+<br>
+<button onclick="check()">Antwort</button>
+</div>
+
+<div id="final">
+❤️ Ellaha ❤️  
+<br><br>
+Du bist mein Zuhause.  
+Mein Herz.  
+Mein Für‑Immer.  
+</div>
+
+</div>
+
+<script>
+
+let step=1;
+
+function hearts(amount){
+for(let i=0;i<amount;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(20+Math.random()*30)+"px";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),4000);
+}
+}
+
+function check(){
+let val=document.getElementById("answer").value;
+
+if(step===1 && val==="10.03.1993"){
+hearts(10);
+document.getElementById("text").innerText="Richtig ❤️ Erinnerst du dich an unser erstes Date?";
+document.getElementById("npc").innerText="🧑";
+step=2;
+}
+else if(step===2 && val==="14.06.2025"){
+hearts(20);
+document.getElementById("text").innerText="Ja… und wann haben wir uns verlobt?";
+document.getElementById("npc").innerText="🤵";
+step=3;
+}
+else if(step===3 && val==="23.08.2025"){
+hearts(30);
+document.getElementById("text").innerText="Fast am Ziel… wann haben wir geheiratet?";
+document.getElementById("npc").innerText="💍";
+step=4;
+}
+else if(step===4 && val==="24.08.2025"){
+hearts(60);
+document.getElementById("dialog").style.display="none";
+document.getElementById("final").style.display="block";
+}
+else{
+alert("Fast ❤️ Versuch es nochmal");
+}
+}
+
+</script>
+
+</body>
+</html>
