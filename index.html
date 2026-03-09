@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ellahas 16‑Bit Liebesabenteuer ❤️</title>
+
+<style>
+html,body{
+margin:0;
+background:black;
+overflow:hidden;
+font-family:monospace;
+}
+
+#container{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+canvas{
+image-rendering:pixelated;
+width:100vw;
+max-width:480px;
+height:auto;
+background:#2c5f2d;
+}
+
+#dialog{
+position:fixed;
+bottom:0;
+width:100%;
+max-width:480px;
+left:50%;
+transform:translateX(-50%);
+background:#111;
+color:white;
+padding:12px;
+display:none;
+border-top:4px solid white;
+}
+
+#dialogText{
+min-height:40px;
+}
+
+input{
+width:100%;
+margin-top:8px;
+padding:8px;
+font-size:16px;
+}
+
+button{
+width:100%;
+margin-top:6px;
+padding:8px;
+font-size:16px;
+background:#ff4d6d;
+color:white;
+border:none;
+}
+
+#controls{
+position:fixed;
+bottom:110px;
+width:100%;
+display:flex;
+justify-content:center;
+gap:10px;
+}
+
+.ctrl{
+width:60px;
+height:60px;
+border-radius:50%;
+border:none;
+font-size:22px;
+background:rgba(255,255,255,0.2);
+color:white;
+}
+</style>
+</head>
+<body>
+
+<div id="container">
+<canvas id="game" width="256" height="224"></canvas>
+</div>
+
+<div id="controls">
+<button class="ctrl" onclick="move(0,-1)">⬆️</button>
+<button class="ctrl" onclick="move(-1,0)">⬅️</button>
+<button class="ctrl" onclick="move(1,0)">➡️</button>
+<button class="ctrl" onclick="move(0,1)">⬇️</button>
+</div>
+
+<div id="dialog">
+<div id="dialogText"></div>
+<input id="answer" placeholder="TT.MM.JJJJ">
+<button onclick="submitAnswer()">Antwort</button>
+</div>
+
+<script>
+const canvas=document.getElementById("game");
+const ctx=canvas.getContext("2d");
+
+const tile=16;
+let stage=1;
+let typingIndex=0;
+let typingText="";
+let typingInterval;
+
+let player={x:8,y:12,frame:0};
+
+const npcs=[
+{x:8,y:8},
+{x:12,y:5},
+{x:8,y:2}
+];
+
+function drawTile(x,y,color){
+ctx.fillStyle=color;
+ctx.fillRect(x*tile,y*tile,tile,tile);
+}
+
+function drawMap(){
+for(let y=0;y<14;y++){
+for(let x=0;x<16;x++){
+drawTile(x,y,"#3fa34d"); // grass
+if(x===8) drawTile(x,y,"#8b5a2b"); // path
+if(y===0) drawTile(x,y,"#1f4d2b"); // trees line
+}
+}
+}
+
+function drawPlayer(){
+ctx.fillStyle="yellow";
+ctx.fillRect(player.x*tile,player.y*tile,tile,tile);
+}
+
+function drawNPCs(){
+ctx.fillStyle="white";
+npcs.forEach(n=>{
+ctx.fillRect(n.x*tile,n.y*tile,tile,tile);
+});
+}
+
+function render(){
+ctx.clearRect(0,0,256,224);
+drawMap();
+drawNPCs();
+drawPlayer();
+}
+
+function move(dx,dy){
+let nx=player.x+dx;
+let ny=player.y+dy;
+if(nx>=0 && nx<16 && ny>=0 && ny<14){
+player.x=nx;
+player.y=ny;
+checkNPC();
+render();
+}
+}
+
+function checkNPC(){
+if(stage<=3){
+let npc=npcs[stage-1];
+if(player.x===npc.x && player.y===npc.y){
+openDialog();
+}
+}
+}
+
+function openDialog(){
+let text="";
+if(stage===1) text="Weißt du noch… wann wurdest du geboren?";
+if(stage===2) text="Wann war unser erstes Date?";
+if(stage===3) text="Wann haben wir geheiratet?";
+document.getElementById("dialog").style.display="block";
+typeText(text);
+}
+
+function typeText(text){
+typingText=text;
+typingIndex=0;
+document.getElementById("dialogText").innerText="";
+clearInterval(typingInterval);
+typingInterval=setInterval(()=>{
+if(typingIndex<typingText.length){
+document.getElementById("dialogText").innerText+=typingText[typingIndex];
+typingIndex++;
+}else{
+clearInterval(typingInterval);
+}
+},30);
+}
+
+function closeDialog(){
+document.getElementById("dialog").style.display="none";
+document.getElementById("answer").value="";
+}
+
+function hearts(amount){
+for(let i=0;i<amount;i++){
+let h=document.createElement("div");
+h.innerHTML="❤️";
+h.style.position="fixed";
+h.style.left=Math.random()*100+"vw";
+h.style.top="-20px";
+h.style.fontSize=(20+Math.random()*20)+"px";
+document.body.appendChild(h);
+h.animate([{transform:"translateY(0px)"},{transform:"translateY(600px)"}],{duration:2000});
+setTimeout(()=>h.remove(),2000);
+}
+}
+
+function submitAnswer(){
+let val=document.getElementById("answer").value;
+
+if(stage===1 && val==="10.03.1993"){
+hearts(15);
+stage++;
+closeDialog();
+}
+else if(stage===2 && val==="14.06.2025"){
+hearts(30);
+stage++;
+closeDialog();
+}
+else if(stage===3 && val==="24.08.2025"){
+hearts(60);
+closeDialog();
+showFinal();
+}
+else{
+alert("Fast ❤️");
+}
+}
+
+function showFinal(){
+ctx.fillStyle="black";
+ctx.fillRect(0,0,256,224);
+ctx.fillStyle="white";
+ctx.font="16px monospace";
+ctx.fillText("❤️ Ellaha ❤️",60,100);
+ctx.fillText("Du bist mein Abenteuer.",40,130);
+}
+
+render();
+</script>
+
+</body>
+</html>
