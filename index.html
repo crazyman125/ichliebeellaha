@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1d4d30" />
+  <title>Retro Quest – Mini RPG</title>
+  <meta name="description" content="Ein kleines mobiles Retro-RPG mit 3 NPCs und 3 Fragen." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hud" aria-label="Spielstatus">
+      <div>
+        <h1>Retro Quest</h1>
+        <p>Sprich mit 3 Bewohnern und beantworte 3 Fragen.</p>
+      </div>
+      <div class="status-panel">
+        <div><span>Gesprochen</span><strong id="npcCount">0/3</strong></div>
+        <div><span>Richtig</span><strong id="correctCount">0/3</strong></div>
+      </div>
+    </header>
+
+    <main class="game-layout">
+      <section class="game-card">
+        <div class="screen-wrap">
+          <canvas id="game" width="288" height="512" aria-label="Spielfeld"></canvas>
+          <div class="hint" id="hint">Bewege dich mit dem Steuerkreuz. Geh zu einer Person und tippe auf „Aktion“.</div>
+          <button id="actionBtn" class="action-btn" aria-label="Mit Person sprechen">Aktion</button>
+        </div>
+      </section>
+
+      <section class="controls" aria-label="Steuerung für Touchgeräte">
+        <div class="dpad">
+          <button data-dir="up" aria-label="Nach oben">▲</button>
+          <div class="middle-row">
+            <button data-dir="left" aria-label="Nach links">◀</button>
+            <button data-dir="down" aria-label="Nach unten">▼</button>
+            <button data-dir="right" aria-label="Nach rechts">▶</button>
+          </div>
+        </div>
+        <div class="side-buttons">
+          <button id="talkBtn" class="big-button">Sprechen</button>
+          <button id="restartBtn" class="big-button secondary">Neu</button>
+        </div>
+      </section>
+
+      <section class="help-card">
+        <h2>So funktioniert's</h2>
+        <ul>
+          <li>Besuche die 3 Figuren auf der Karte.</li>
+          <li>Jede Figur stellt dir eine Frage.</li>
+          <li>Am Ende erhältst du dein Ergebnis.</li>
+          <li>Steuerung: Touch, Tastatur oder Aktion-Button.</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal hidden" id="dialogModal" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+    <div class="modal-card">
+      <h2 id="dialogTitle">Gespräch</h2>
+      <p id="dialogText"></p>
+      <form id="questionForm">
+        <fieldset>
+          <legend id="questionLegend">Frage</legend>
+          <div id="answers" class="answers"></div>
+        </fieldset>
+        <div class="modal-actions">
+          <button type="submit" class="big-button">Antwort bestätigen</button>
+        </div>
+      </form>
+      <button id="closeModal" class="close-link" type="button">Schließen</button>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="endModal" role="dialog" aria-modal="true" aria-labelledby="endTitle">
+    <div class="modal-card">
+      <h2 id="endTitle">Abenteuer geschafft</h2>
+      <p id="endText"></p>
+      <div class="modal-actions">
+        <button id="playAgainBtn" class="big-button">Nochmal spielen</button>
+      </div>
+    </div>
+  </div>
+
+  <noscript>Für dieses Spiel muss JavaScript aktiviert sein.</noscript>
+  <script src="script.js"></script>
+</body>
+</html>

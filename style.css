@@ -1,0 +1,185 @@
+:root {
+  --bg: #102119;
+  --panel: #20452d;
+  --panel-2: #2f6b45;
+  --border: #d8c98c;
+  --text: #f7f0d4;
+  --accent: #f0bb4d;
+  --accent-2: #8dd08f;
+  --danger: #d96b5f;
+  --shadow: rgba(0, 0, 0, 0.35);
+  --font: "Trebuchet MS", "Verdana", sans-serif;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; min-height: 100%; background: linear-gradient(180deg, #173825 0%, #0d1812 100%); color: var(--text); font-family: var(--font); }
+body { overscroll-behavior: none; }
+button, input, label { font: inherit; }
+
+.app-shell {
+  width: min(100%, 980px);
+  margin: 0 auto;
+  padding: env(safe-area-inset-top) 12px env(safe-area-inset-bottom);
+}
+
+.hud, .game-card, .controls, .help-card, .modal-card {
+  background: linear-gradient(180deg, var(--panel) 0%, #173322 100%);
+  border: 3px solid var(--border);
+  box-shadow: 0 10px 30px var(--shadow);
+  border-radius: 16px;
+}
+
+.hud {
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.hud h1 { margin: 0 0 6px; font-size: 1.4rem; }
+.hud p { margin: 0; opacity: .9; font-size: .95rem; }
+.status-panel { display: flex; gap: 14px; flex-wrap: wrap; }
+.status-panel div {
+  min-width: 90px;
+  background: rgba(255,255,255,.06);
+  padding: 8px 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+.status-panel span { display: block; font-size: .8rem; opacity: .85; }
+.status-panel strong { font-size: 1.1rem; }
+
+.game-layout { display: grid; gap: 14px; grid-template-columns: 1fr; }
+.game-card { padding: 12px; }
+.screen-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+#game {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  border: 4px solid #09140d;
+  border-radius: 12px;
+  background: #7cb56d;
+}
+.hint {
+  margin-top: 10px;
+  background: rgba(0,0,0,.28);
+  padding: 10px;
+  border-radius: 10px;
+  font-size: .92rem;
+}
+.action-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 56px;
+  border: 0;
+  background: var(--accent);
+  color: #201403;
+  font-weight: 700;
+  padding: 10px 12px;
+  border-radius: 999px;
+  box-shadow: 0 4px 0 #9f7521;
+}
+
+.controls {
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.dpad { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.middle-row { display: flex; gap: 8px; }
+.dpad button, .big-button {
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #efda99 0%, #d1a94b 100%);
+  color: #271a05;
+  font-weight: 700;
+  box-shadow: 0 4px 0 #8e6d25;
+}
+.dpad button {
+  width: 64px;
+  height: 54px;
+  font-size: 1.3rem;
+}
+.side-buttons { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.big-button {
+  padding: 14px 16px;
+  min-height: 52px;
+}
+.big-button.secondary {
+  background: linear-gradient(180deg, #b6cfb7 0%, #77a97d 100%);
+  box-shadow: 0 4px 0 #4a714f;
+}
+button:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(0,0,0,.35); }
+button:focus-visible, input:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.help-card { padding: 14px; }
+.help-card h2 { margin-top: 0; }
+.help-card ul { margin: 0; padding-left: 18px; }
+.help-card li { margin: 8px 0; }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  z-index: 100;
+}
+.hidden { display: none; }
+.modal-card {
+  width: min(100%, 560px);
+  padding: 18px;
+}
+.modal-card h2 { margin-top: 0; }
+.answers { display: grid; gap: 10px; margin-top: 14px; }
+.answer-option {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: rgba(255,255,255,.06);
+  padding: 12px;
+  border-radius: 12px;
+}
+.modal-actions { margin-top: 16px; }
+.close-link {
+  background: transparent;
+  color: var(--text);
+  border: 0;
+  text-decoration: underline;
+  margin-top: 10px;
+}
+
+@media (min-width: 860px) {
+  .game-layout {
+    grid-template-columns: 1.2fr .8fr;
+    grid-template-areas:
+      "game controls"
+      "game help";
+    align-items: start;
+  }
+  .game-card { grid-area: game; }
+  .controls { grid-area: controls; flex-direction: column; }
+  .help-card { grid-area: help; }
+}
+
+@media (max-width: 520px) {
+  .hud { align-items: flex-start; flex-direction: column; }
+  .controls { flex-direction: row; align-items: stretch; }
+  .dpad button { width: 58px; height: 50px; }
+  .action-btn { bottom: 60px; }
+}
