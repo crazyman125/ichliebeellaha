@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ellahas Liebes-RPG ❤️</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:linear-gradient(to top,#ff9a9e,#fad0c4);
+overflow:hidden;
+text-align:center;
+color:white;
+}
+
+#game{
+position:relative;
+width:100%;
+height:70vh;
+background:linear-gradient(#ff758c,#ff7eb3);
+overflow:hidden;
+}
+
+#player{
+position:absolute;
+bottom:20px;
+left:10px;
+font-size:40px;
+transition:0.2s;
+}
+
+.npc{
+position:absolute;
+bottom:20px;
+font-size:40px;
+}
+
+#npc1{ left:40%; }
+#npc2{ left:65%; }
+#npc3{ left:85%; }
+
+#controls{
+margin-top:20px;
+}
+
+button{
+padding:15px 25px;
+font-size:20px;
+border:none;
+border-radius:10px;
+background:#ff4d6d;
+color:white;
+margin:5px;
+}
+
+#dialog{
+position:fixed;
+bottom:0;
+width:100%;
+background:rgba(0,0,0,0.85);
+padding:20px;
+display:none;
+}
+
+input{
+padding:10px;
+font-size:16px;
+border-radius:8px;
+border:none;
+width:70%;
+max-width:250px;
+}
+
+.heart{
+position:fixed;
+font-size:25px;
+animation:fall 4s linear forwards;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px);opacity:1;}
+100%{transform:translateY(100vh);opacity:0;}
+}
+
+#final{
+display:none;
+font-size:28px;
+margin-top:20px;
+animation:fade 2s;
+}
+
+@keyframes fade{
+from{opacity:0;transform:scale(0.7);}
+to{opacity:1;transform:scale(1);}
+}
+</style>
+</head>
+
+<body>
+
+<h2>Ellahas Liebesreise ❤️</h2>
+
+<div id="game">
+<div id="player">👩</div>
+<div class="npc" id="npc1">👨</div>
+<div class="npc" id="npc2">🤵</div>
+<div class="npc" id="npc3">💍</div>
+</div>
+
+<div id="controls">
+<button onclick="move(-5)">⬅️</button>
+<button onclick="move(5)">➡️</button>
+</div>
+
+<div id="dialog">
+<p id="question"></p>
+<input id="answer" placeholder="TT.MM.JJJJ">
+<button onclick="checkAnswer()">Antwort</button>
+</div>
+
+<div id="final">
+❤️ Ellaha ❤️  
+<br><br>
+Du hast jeden Weg richtig gewählt.  
+Und ich wähle dich.  
+Immer.  
+</div>
+
+<script>
+
+let playerX = 10;
+let step = 1;
+
+function move(amount){
+playerX += amount;
+if(playerX < 0) playerX = 0;
+if(playerX > 90) playerX = 90;
+document.getElementById("player").style.left = playerX + "%";
+
+checkCollision();
+}
+
+function checkCollision(){
+if(step===1 && playerX > 38 && playerX < 45){
+openDialog("Wann bist du geboren?");
+}
+if(step===2 && playerX > 63 && playerX < 70){
+openDialog("Wann war unser erstes Date?");
+}
+if(step===3 && playerX > 83){
+openDialog("Wann haben wir geheiratet?");
+}
+}
+
+function openDialog(text){
+document.getElementById("dialog").style.display="block";
+document.getElementById("question").innerText=text;
+}
+
+function closeDialog(){
+document.getElementById("dialog").style.display="none";
+}
+
+function hearts(amount){
+for(let i=0;i<amount;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),4000);
+}
+}
+
+function checkAnswer(){
+let val=document.getElementById("answer").value;
+
+if(step===1 && val==="10.03.1993"){
+hearts(10);
+step=2;
+closeDialog();
+}
+else if(step===2 && val==="14.06.2025"){
+hearts(25);
+step=3;
+closeDialog();
+}
+else if(step===3 && val==="24.08.2025"){
+hearts(60);
+closeDialog();
+document.getElementById("final").style.display="block";
+}
+else{
+alert("Fast ❤️ Versuch es nochmal");
+}
+}
+
+</script>
+
+</body>
+</html>
