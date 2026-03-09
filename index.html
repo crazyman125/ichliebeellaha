@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Ellaha ❤️</title>
+
+<style>
+body{
+font-family:Arial;
+text-align:center;
+background:linear-gradient(135deg,#ffdde1,#ee9ca7);
+color:#5a2a2a;
+margin:0;
+padding:40px;
+overflow-x:hidden;
+}
+
+h1{font-size:40px;}
+
+.box{
+background:white;
+padding:25px;
+border-radius:15px;
+margin:20px auto;
+max-width:500px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+input{
+padding:10px;
+font-size:16px;
+border-radius:8px;
+border:1px solid #ccc;
+width:200px;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:8px;
+background:#ff4d6d;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{background:#ff3355;}
+
+.heart{
+position:fixed;
+font-size:24px;
+animation:fall 4s linear forwards;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px) rotate(0deg);opacity:1;}
+100%{transform:translateY(100vh) rotate(360deg);opacity:0;}
+}
+
+#final{
+display:none;
+font-size:30px;
+margin-top:40px;
+animation:fade 2s;
+}
+
+@keyframes fade{
+from{opacity:0;transform:scale(0.7)}
+to{opacity:1;transform:scale(1)}
+}
+</style>
+</head>
+
+<body>
+
+<h1>Für meine Frau Ellaha ❤️</h1>
+<p>Beantworte unsere kleinen Liebesrätsel.</p>
+
+<div class="box">
+<p>1️⃣ Wann bist du geboren?</p>
+<input id="q1" placeholder="TT.MM.JJJJ">
+<button onclick="check(1)">Antwort</button>
+</div>
+
+<div class="box">
+<p>2️⃣ Wann war unser erstes Date?</p>
+<input id="q2" placeholder="TT.MM.JJJJ">
+<button onclick="check(2)">Antwort</button>
+</div>
+
+<div class="box">
+<p>3️⃣ Wann haben wir uns verlobt?</p>
+<input id="q3" placeholder="TT.MM.JJJJ">
+<button onclick="check(3)">Antwort</button>
+</div>
+
+<div class="box">
+<p>4️⃣ Wann haben wir geheiratet?</p>
+<input id="q4" placeholder="TT.MM.JJJJ">
+<button onclick="check(4)">Antwort</button>
+</div>
+
+<div id="final">
+❤️ Ellaha ❤️  
+<br><br>
+Ich liebe dich mehr als Worte sagen können.  
+Jeder dieser Tage hat mein Leben verändert.  
+Und der schönste Teil ist:  
+<br><br>
+Unsere Geschichte hat gerade erst begonnen.
+</div>
+
+<script>
+
+const answers={
+1:"10.03.1993",
+2:"14.06.2025",
+3:"23.08.2025",
+4:"24.08.2025"
+}
+
+function check(n){
+
+let val=document.getElementById("q"+n).value
+
+if(val===answers[n]){
+
+hearts()
+
+if(n===4){
+document.getElementById("final").style.display="block"
+bigHearts()
+}
+
+}else{
+alert("Fast ❤️ Versuch es nochmal")
+}
+
+}
+
+function hearts(){
+
+for(let i=0;i<20;i++){
+
+let h=document.createElement("div")
+h.className="heart"
+h.innerHTML="❤️"
+
+h.style.left=Math.random()*100+"vw"
+h.style.fontSize=(20+Math.random()*30)+"px"
+
+document.body.appendChild(h)
+
+setTimeout(()=>{h.remove()},4000)
+
+}
+
+}
+
+function bigHearts(){
+
+setInterval(()=>{
+
+let h=document.createElement("div")
+h.className="heart"
+h.innerHTML="❤️"
+
+h.style.left=Math.random()*100+"vw"
+h.style.fontSize="40px"
+
+document.body.appendChild(h)
+
+setTimeout(()=>{h.remove()},4000)
+
+},400)
+
+}
+
+</script>
+
+</body>
+</html>
