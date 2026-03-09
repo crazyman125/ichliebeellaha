@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#c93c77">
+  <title>Ellahas Herzensquest</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div>
+        <h1>Ellahas Herzensquest 💖</h1>
+        <p>Kamal spricht mit dir. Sammle 3 Erinnerungsherzen.</p>
+      </div>
+      <div class="stats">
+        <div><span>Gespräche</span><strong id="talkCount">0/3</strong></div>
+        <div><span>Herzen</span><strong id="heartCount">0/3</strong></div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="gameCard">
+        <div class="canvasWrap">
+          <canvas id="game" width="320" height="512"></canvas>
+          <button id="talkFloating" class="talkFloating" type="button">Sprechen</button>
+        </div>
+        <p class="hint" id="hint">Bewege Ellaha mit den Pfeilen und stelle dich auf ein Herz.</p>
+      </section>
+
+      <section class="controls">
+        <div class="dpad">
+          <button type="button" data-dir="up">▲</button>
+          <div class="row">
+            <button type="button" data-dir="left">◀</button>
+            <button type="button" data-dir="down">▼</button>
+            <button type="button" data-dir="right">▶</button>
+          </div>
+        </div>
+        <div class="buttons">
+          <button id="talkBtn" type="button" class="primary">Sprechen</button>
+          <button id="resetBtn" type="button" class="secondary">Neu starten</button>
+        </div>
+      </section>
+
+      <section class="info">
+        <h2>So spielt Ellaha</h2>
+        <ul>
+          <li>Ellaha ist die Figur mit dem pinken Kleid.</li>
+          <li>Die drei Herzen auf der Karte sind die Stationen.</li>
+          <li>Bei jeder richtigen Antwort wird die Belohnung größer.</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <div class="overlay hidden" id="dialogOverlay">
+    <div class="modal">
+      <h2>Kamal zu Ellaha</h2>
+      <p id="dialogText"></p>
+      <form id="answerForm">
+        <p class="question" id="questionText"></p>
+        <div id="answerList" class="answers"></div>
+        <button type="submit" class="primary full">Antwort bestätigen</button>
+      </form>
+      <button id="closeDialog" type="button" class="linkBtn">Schließen</button>
+    </div>
+  </div>
+
+  <div class="overlay hidden" id="rewardOverlay">
+    <div class="modal rewardModal">
+      <div class="rewardHearts" id="rewardHearts"></div>
+      <h2 id="rewardTitle"></h2>
+      <p id="rewardText"></p>
+    </div>
+  </div>
+
+  <div class="overlay hidden" id="endOverlay">
+    <div class="modal">
+      <h2>Alles Gute zum Geburtstag, Ellaha 💝</h2>
+      <p id="endText"></p>
+      <div class="letter">
+        <p>Meine liebe Ellaha,</p>
+        <p>du bist mein schönstes Abenteuer. Danke für jeden Moment mit dir.</p>
+        <p>In Liebe,<br><strong>Kamal</strong></p>
+      </div>
+      <button id="playAgain" type="button" class="primary full">Nochmal spielen</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
